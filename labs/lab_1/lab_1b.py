@@ -8,7 +8,6 @@ The script asks the user to input the numbers and the operation to be performed,
 and prints the result to the terminal window.
 
 """
-
 def simple_calculator(operation: str, num1: float, num2: float) -> float:
     """
     Function that takes in two numbers and an operation (add, subtract, multiply, divide),
@@ -36,18 +35,34 @@ def simple_calculator(operation: str, num1: float, num2: float) -> float:
             raise ValueError("Cannot divide by zero.")
     else:
         raise ValueError("Invalid operation. Please choose from 'add', 'subtract', 'multiply', or 'divide'.")
-
+def invalid_number(num):
+    try:
+        float(num)
+        return True
+    except ValueError:
+        return False
 def main():
     
     print(f"===== Simple Calculator =====")
-
     # Ask the user for sample input    
-    num1 = float(input("Enter the first number: "))
-    num2 = float(input("Enter the second number: "))
-    operation = input("Enter the operation (add, subtract, multiply, divide): ").strip().lower()
+    while True:
+        num1 = input("Enter the first number: ")
+        num1check = invalid_number(num1)
+        num2 = input("Enter the second number: ")
+        num2check = invalid_number(num2)
+        if not num1check or not num2check:
+            print("Invalid Inputs. Please try again.")
+        else:
+            break
+    while True:
+        operation = input("Enter the operation (add, subtract, multiply, divide): ").strip().lower()
+        if operation == "add" or operation == "multiply" or operation == "subtract" or operation == "divide":
+            break
+        else:
+            print("Invalid operation. Please try again.")
 
     # Perform the calculation and display the result
-    result = simple_calculator(operation, num1, num2)
+    result = simple_calculator(operation, float(num1), float(num2))
     print(f"The result of {operation}ing {num1} and {num2} is: {result}")
 
 
